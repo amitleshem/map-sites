@@ -7,5 +7,5 @@ object MapSitesServer extends BootstrapServer {
 
   override def additionalSpringConfig = Some(classOf[MapSitesConfig])
 
-  override val programName: String = "Map Sites Server"
+  override val programName: String = "Map-Sites Server"
 }
