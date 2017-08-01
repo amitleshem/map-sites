@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.wixpress.meta-site</groupId><!-- groupId must start with com.wixpress!!! -->
+    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>map-sites</artifactId>
+    <packaging>jar</packaging>
+
+
+    <parent>
+        <groupId>com.wixpress</groupId>
+        <artifactId>wix-server-bootstrap-parent</artifactId>
+        <version>100.0.0-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <server.mainClass>com.wixpress.mapsites.MapSitesServer</server.mainClass>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.wixpress.iptf</groupId>
+            <artifactId>greyhound-clients</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wixpress.iptf</groupId>
+            <artifactId>greyhound-testkit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wixpress.siteproperties</groupId>
+            <artifactId>site-properties-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wixpress.siteproperties</groupId>
+            <artifactId>site-properties-testkit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wixpress.common</groupId>
+            <artifactId>wix-framework-scala-test-dependencies</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wixpress</groupId>
+            <artifactId>bootstrap-server-testkit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <developers>
+        <developer>
+            <name>amitle</name>
+            <email>amitle@wix.com</email>
+            <roles>
+                <role>owner</role>
+            </roles>
+        </developer>
+    </developers>
+
+    
+</project>
