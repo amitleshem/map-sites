@@ -18,7 +18,6 @@ class MapSitesIT extends SpecificationWithJUnit with BaseE2E {
   trait Ctx extends Scope {
     val topic = "site-properties.changes"
   }
-
   "map sites" should {
 
     "return empty list" in new Ctx {

@@ -14,12 +14,10 @@ class MapSitesController(dao: Dao) {
     val notifications = maybeNotification.map(Seq(_)).getOrElse(Seq.empty)
     MapSites(notifications)
   }
-
   @RequestMapping(value = Array("/checkdb"), method = Array(RequestMethod.GET))
   def checkDB(model: Model): MapSites = {
     MapSites(Seq.empty)
   }
-
 }
 
 case class MapSites(seqData: Seq[SitePropertiesNotification])

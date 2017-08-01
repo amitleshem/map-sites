@@ -9,7 +9,5 @@ trait Dao {
 
   def put(sitePropertyNotification: Notifications.SitePropertiesNotification)
 
-  //def getAll(userId: String): Seq[Todo]
-  //def addTask(userId: String, taskId: String, description: String): Todo
 
 }

@@ -6,8 +6,6 @@ class EventMessageHandler(dao: Dao) {
 
   def handleMessage(sitePropertyNotification: SitePropertiesNotification) = {
 
-    print("####################")
-    println(sitePropertyNotification.event)
     dao.put(sitePropertyNotification)
 
   }

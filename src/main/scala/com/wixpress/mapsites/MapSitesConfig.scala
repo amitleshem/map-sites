@@ -20,7 +20,6 @@ class MapSitesConfig {
     val messageHandler = MessageHandler.aMessageHandler {
       sitePropertyNotification: SitePropertiesNotification => eventMessageHandler.handleMessage(sitePropertyNotification)
     }.build
-
     consumers.add(GreyhoundConsumerSpec.aGreyhoundConsumerSpec(topic = "site-properties.changes", messageHandler = messageHandler)
       .withGroup("myGroup"))
     messageHandler

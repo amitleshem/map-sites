@@ -11,7 +11,6 @@ trait BaseE2E extends GlobalTestEnvSupport with GreyhoundTestingSupport {
   override def testEnv: TestEnv = EmbeddedEnvironment.testEnv
 }
 
-
 object EmbeddedEnvironment {
   KafkaDriver.getInstance()
 

@@ -17,7 +17,6 @@
     <properties>
         <server.mainClass>com.wixpress.mapsites.MapSitesServer</server.mainClass>
     </properties>
-
     <dependencies>
 
         <dependency>

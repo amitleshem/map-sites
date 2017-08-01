@@ -11,7 +11,6 @@ class InMemoryDb extends Dao {
 
   val businessToAddress: mutable.Map[String, String] = mutable.Map()
   val notifications: mutable.ListBuffer[SitePropertiesNotification] = new ListBuffer[SitePropertiesNotification]
-
   override def put(sitePropertyNotification: Notifications.SitePropertiesNotification): Unit = {
     notifications += sitePropertyNotification
   }
