@@ -18,25 +18,25 @@ class MapSitesIT extends SpecificationWithJUnit with BaseE2E {
   trait Ctx extends Scope {
     val topic = "site-properties.changes"
   }
+
+  sequential
+
   "map sites" should {
 
     "return empty list" in new Ctx {
       get("/test") must beSuccessfulWith(MapSites(Seq.empty))
     }
 
-    "send and receive with kafka and controller" in new Ctx {
-      val producer1 = GreyhoundProducerBuilder.aGreyhoundProducerBuilder(topic).build
-      val notification1 = SitePropertiesNotification(metasiteId = randomGuid, Updated[PostalAddress](Version.maximumVersion, null), Seq.empty)
-      producer1.produce(notification1)
-      get("/test") must beSuccessfulWith(MapSites(Seq(notification1))).eventually
-    }
+
 
     "produce event and save address to DB" in new Ctx {
-      val producer2 = GreyhoundProducerBuilder.aGreyhoundProducerBuilder(topic).build
-      val notification2 = SitePropertiesNotification(metasiteId = randomGuid, Updated[PostalAddress](Version.maximumVersion,
-        PostalAddress(street = "hanamal 40", city = "Tel Aviv", Country.IS, null, null, null, null, true, null, null)), Seq.empty)
-      producer2.produce(notification2)
-      get("/checkdb") must beSuccessfulWith(MapSites(Seq(notification2))).eventually
+
+      val postalAddress = Updated[PostalAddress](Version.maximumVersion,
+        PostalAddress(street = "hanamal 40", city = "Tel Aviv", Country.IS, null, null, null, null, true, null, null))
+      val notification: SitePropertiesNotification = EmbeddedEnvironment.testKit.sendNotification(topic, randomGuid[_], postalAddress, Seq.empty)
+
+
+      get("/checkdb") must beSuccessfulWith(MapSites(Seq(notification))).eventually
     }
 
 
