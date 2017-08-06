@@ -3,8 +3,7 @@ package com.wixpress.mapsites
 import com.wixpress.siteproperties.api.v3.Events.{Deleted, Updated}
 import com.wixpress.siteproperties.api.v3.Notifications.SitePropertiesNotification
 import com.wixpress.siteproperties.api.v3.Properties.PostalAddress
-import com.wixpress.siteproperties.api.v3.{Events, SitePropertiesStorageV3}
-import com.wixpress.siteproperties.api.v3.Property
+import com.wixpress.siteproperties.api.v3.{Property, SitePropertiesStorageV3}
 
 class EventMessageHandler(dao: Dao, siteProperties: SitePropertiesStorageV3) {
 

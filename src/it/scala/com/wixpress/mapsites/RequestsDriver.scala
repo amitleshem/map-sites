@@ -13,7 +13,9 @@ case class RequestsDriver() extends SpecificationWithJUnit{
 
   def getAddress(guid: Guid[_]) = get(s"/getAddress/${guid}")
 
-  def deleteSite(guid: Guid[_]) = delete(s"/removeSite/${guid}")
+  def deleteSite(guid: Guid[_]) = {
+    delete(s"/removeSite/${guid}")
+  }
 
   def anAddress(withStreet: String, withCity: String, withCountry: Country): Matcher[Address] = {
     be_===(withStreet) ^^ {(_: Address).street} and
