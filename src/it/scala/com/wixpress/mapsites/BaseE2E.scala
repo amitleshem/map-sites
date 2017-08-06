@@ -6,9 +6,7 @@ import com.wixpress.greyhound.{GreyhoundTestingSupport, KafkaDriver, KafkaManage
 import com.wixpress.hoopoe.config.TestConfigFactory.aTestEnvironmentFor
 import com.wixpress.siteproperties.testkit.SitePropertiesTestKit
 
-/**
-  * Created by amitle on 31/07/2017.
-  */
+
 trait BaseE2E extends GlobalTestEnvSupport with GreyhoundTestingSupport {
   override def testEnv: TestEnv = EmbeddedEnvironment.testEnv
 }

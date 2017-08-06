@@ -8,11 +8,11 @@ import com.wixpress.framework.rpc.discovery.{RpcProxyFactory, StaticRpcOverHttpP
 import com.wixpress.framework.rpc.json.JsonRpcProtocolClient
 import com.wixpress.framework.spring.JsonRpcServerConfiguration
 import com.wixpress.greyhound.{Consumers, GreyhoundConsumerSpec, GreyhoundSpringConfig, MessageHandler}
-import com.wixpress.hoopoe.json.JsonMapper
-import org.springframework.context.annotation.{Bean, Configuration, Import}
 import com.wixpress.hoopoe.config.ConfigFactory._
+import com.wixpress.hoopoe.json.JsonMapper
 import com.wixpress.siteproperties.api.v3.Notifications.SitePropertiesNotification
 import com.wixpress.siteproperties.api.v3._
+import org.springframework.context.annotation.{Bean, Configuration, Import}
 
 @Configuration
 @Import(Array(classOf[GreyhoundSpringConfig], classOf[JsonRpcServerConfiguration]))

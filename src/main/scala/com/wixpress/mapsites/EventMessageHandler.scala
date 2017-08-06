@@ -1,10 +1,8 @@
 package com.wixpress.mapsites
 
-import com.wixpress.siteproperties.Country
-import com.wixpress.siteproperties.api.v2.GeoCoordinates
 import com.wixpress.siteproperties.api.v3.Notifications.SitePropertiesNotification
 import com.wixpress.siteproperties.api.v3.Properties.PostalAddress
-import com.wixpress.siteproperties.api.v3.{SitePropertiesStorageV3, Version}
+import com.wixpress.siteproperties.api.v3.SitePropertiesStorageV3
 
 class EventMessageHandler(dao: Dao, siteProperties: SitePropertiesStorageV3) {
 
