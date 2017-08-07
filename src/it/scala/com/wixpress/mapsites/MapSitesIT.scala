@@ -15,14 +15,14 @@ class MapSitesIT extends SpecificationWithJUnit with BaseE2E {
     val topic = "site-properties.changes"
     val kit = EmbeddedEnvironment.testKit
     val requestsDriver = RequestsDriver()
+    val postalAddress = PostalAddress(street = "hanamal 40", city = "Tel Aviv", Country.IS, None)
   }
 
   sequential
 
   "map sites" should {
 
-        "produce event and save address to DB" in new Ctx {
-          val postalAddress = PostalAddress(street = "hanamal 40", city = "Tel Aviv", Country.IS, None)
+    "produce event and save address to DB" in new Ctx {
           val guid = randomGuid
 
           val version = kit.givenProperty(guid, postalAddress)
@@ -30,11 +30,10 @@ class MapSitesIT extends SpecificationWithJUnit with BaseE2E {
           val notification: SitePropertiesNotification = kit.sendNotification(topic, guid, event, Seq.empty)
 
           requestsDriver.getAddress(guid) must beSuccessfulWith(requestsDriver.anAddress("hanamal 40", "Tel Aviv", Country.IS,
-            requestsDriver.getCoordinates(postalAddress))).eventually
+            Some(GeoCoordinates(31.98960170, 34.77902670)))).eventually
         }
 
         "delete a business from DB" in new Ctx {
-          val postalAddress = PostalAddress(street = "hanamal 40", city = "Tel Aviv", Country.IS, coordinates = Some(GeoCoordinates(32.098876, 34.774840)))
           val guid = randomGuid
 
           val versionUpdate = kit.givenProperty(guid, postalAddress)
@@ -48,9 +47,6 @@ class MapSitesIT extends SpecificationWithJUnit with BaseE2E {
           requestsDriver.getAddress(guid) must beSuccessful and haveBody(None)
 
         }
-
-
-
 
   }
 

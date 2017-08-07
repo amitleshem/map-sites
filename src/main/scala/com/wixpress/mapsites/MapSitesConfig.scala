@@ -2,6 +2,7 @@ package com.wixpress.mapsites
 
 import java.nio.file.{Files, Paths}
 
+import com.google.maps.GeoApiContext
 import com.wixpress.framework.remoting.HttpConstants
 import com.wixpress.framework.rpc.client.{RpcOverHttpClientEventHandler, RpcOverHttpRequestContext, RpcOverHttpResponseContext, WixAsyncRpcOverHttpClientFactory}
 import com.wixpress.framework.rpc.discovery.{RpcProxyFactory, StaticRpcOverHttpProxyFactory}
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.{Bean, Configuration, Import}
 @Configuration
 @Import(Array(classOf[GreyhoundSpringConfig], classOf[JsonRpcServerConfiguration]))
 class MapSitesConfig {
+
   private val config = aConfigFor[ConfigRoot]("map-sites")
 
   def staticSessionWriter = new RpcOverHttpClientEventHandler {
@@ -42,11 +44,15 @@ class MapSitesConfig {
 
 
 
+  val context: GeoApiContext = new GeoApiContext.Builder().apiKey(config.secret.apiKey).build
+
+
+
   @Bean def dao: Dao = new InMemoryDb
 
   @Bean def mapSitesController(dao: Dao): MapSitesController = new MapSitesController(dao)
 
-  @Bean def eventMessageHandler(dao: Dao): EventMessageHandler = new EventMessageHandler(dao, storage)
+  @Bean def eventMessageHandler(dao: Dao): EventMessageHandler = new EventMessageHandler(dao, storage, context)
 
   @Bean def consumer(consumers: Consumers, eventMessageHandler: EventMessageHandler) = {
     val messageHandler = MessageHandler.aMessageHandler {
@@ -62,5 +68,6 @@ class MapSitesConfig {
 
 }
 
-case class ConfigRoot(services: Services)
+case class ConfigRoot(services: Services, secret: Secret)
 case class Services(sitePropertiesUrl: String)
+case class Secret(apiKey: String)

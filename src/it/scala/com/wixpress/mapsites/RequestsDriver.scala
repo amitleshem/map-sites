@@ -28,12 +28,4 @@ case class RequestsDriver() extends SpecificationWithJUnit{
     be_===(withCoordinates) ^^ {(_: Address).coordinates}
   }
 
-  def getCoordinates(address: PostalAddress): Option[GeoCoordinates] ={
-    val context: GeoApiContext = new GeoApiContext.Builder().apiKey("AIzaSyAujV40bM2bvaudjrhh40fxWD5pcV4HlHs").build
-    val addressString = address.street + " " + address.city
-    val results: Array[GeocodingResult] = GeocodingApi.geocode(context,addressString).await
-    val coordinates = results(0).geometry.location
-    Some(GeoCoordinates(coordinates.lat, coordinates.lng))
-  }
-
 }

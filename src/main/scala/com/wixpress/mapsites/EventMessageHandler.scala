@@ -8,8 +8,7 @@ import com.wixpress.siteproperties.api.v3.Notifications.SitePropertiesNotificati
 import com.wixpress.siteproperties.api.v3.Properties.PostalAddress
 import com.wixpress.siteproperties.api.v3.{Property, SitePropertiesStorageV3}
 
-class EventMessageHandler(dao: Dao, siteProperties: SitePropertiesStorageV3) {
-
+class EventMessageHandler(dao: Dao, siteProperties: SitePropertiesStorageV3, context: GeoApiContext) {
 
   def handleMessage(sitePropertyNotification: SitePropertiesNotification) = {
 
@@ -31,16 +30,17 @@ class EventMessageHandler(dao: Dao, siteProperties: SitePropertiesStorageV3) {
     }
   }
 
+
+  private def delete(sitePropertyNotification: SitePropertiesNotification) = {
+    dao.delete(sitePropertyNotification.metasiteId)
+  }
+
   private def getCoordinates(address: PostalAddress): Option[GeoCoordinates] ={
-    val context: GeoApiContext = new GeoApiContext.Builder().apiKey("AIzaSyAujV40bM2bvaudjrhh40fxWD5pcV4HlHs").build
     val addressString = address.street + " " + address.city
     val results: Array[GeocodingResult] = GeocodingApi.geocode(context,addressString).await
     val coordinates = results(0).geometry.location
     Some(GeoCoordinates(coordinates.lat, coordinates.lng))
   }
 
-  private def delete(sitePropertyNotification: SitePropertiesNotification) = {
-    dao.delete(sitePropertyNotification.metasiteId)
-  }
 }
 
