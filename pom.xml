@@ -108,6 +108,18 @@
             <version>2.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.11</artifactId>
+            <version>2.2.4</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wixpress.hoopoe</groupId>
+            <artifactId>hoopoe-json</artifactId>
+        </dependency>
+
     </dependencies>
 
     <developers>

@@ -7,15 +7,13 @@ import com.wixpress.siteproperties.api.v3.Notifications.SitePropertiesNotificati
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
-class InMemoryDb extends Dao {
+class InMemoryDao extends Dao {
 
   val businessToAddress: mutable.Map[Guid[_], Address] = mutable.Map()
   val notifications: mutable.ListBuffer[SitePropertiesNotification] = new ListBuffer[SitePropertiesNotification]
 
   override def put(metaSiteId: MetaSiteId, address: Address): Unit = {
     businessToAddress(metaSiteId) = address
-//    implicit val formats = DefaultFormats
-//    val jsonString = write(address)
   }
 
   override def get(metaSiteId: Guid[_]): Option[Address] = {

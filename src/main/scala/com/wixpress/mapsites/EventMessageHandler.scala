@@ -22,7 +22,7 @@ class EventMessageHandler(dao: Dao, siteProperties: SitePropertiesStorageV3, con
   private def update(sitePropertyNotification: SitePropertiesNotification) = {
     val siteSnapshot = siteProperties.readSnapshot(sitePropertyNotification.metasiteId, None)
     val address = siteSnapshot[PostalAddress]
-      .map(address => new Address(address.street, address.city, address.country, getCoordinates(address)))
+      .map(address => new Address(address.street, address.city, address.country.numeric(), getCoordinates(address)))
       .getOrElse("Not valid address")
 
     address match {
