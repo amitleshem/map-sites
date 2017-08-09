@@ -3,7 +3,6 @@ package com.wixpress.mapsites
 import com.wix.e2e.http.Implicits.defaultServerPort
 import com.wix.e2e.http.sync._
 import com.wixpress.hoopoe.ids.Guid
-import com.wixpress.siteproperties.Country
 import com.wixpress.siteproperties.api.v2.GeoCoordinates
 import org.specs2.matcher.Matcher
 import org.specs2.mutable.SpecificationWithJUnit

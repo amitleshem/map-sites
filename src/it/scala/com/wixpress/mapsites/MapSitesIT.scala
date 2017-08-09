@@ -1,20 +1,14 @@
 package com.wixpress.mapsites
 
 import com.wix.e2e.ResponseMatchers._
-import com.wix.e2e.http.sync._
 import com.wixpress.hoopoe.ids.randomGuid
 import com.wixpress.siteproperties.Country
-import com.wixpress.siteproperties.api.v3.Events.{Deleted, Updated}
+import com.wixpress.siteproperties.api.v3.Events.Updated
 import com.wixpress.siteproperties.api.v3.Notifications.SitePropertiesNotification
 import com.wixpress.siteproperties.api.v3.Properties.{GeoCoordinates, PostalAddress}
 import com.workday.esclient.EsClient
-import net.liftweb.json.DefaultFormats
-import net.liftweb.json.Serialization.write
-
 import org.specs2.matcher.Scope
 import org.specs2.mutable.SpecificationWithJUnit
-import com.fasterxml.jackson.databind._
-import com.wixpress.hoopoe.json.JsonMapper
 
 class MapSitesIT extends SpecificationWithJUnit with BaseE2E {
 
