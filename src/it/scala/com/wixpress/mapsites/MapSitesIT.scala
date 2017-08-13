@@ -1,15 +1,13 @@
 package com.wixpress.mapsites
 
-import com.wix.e2e.ResponseMatchers._
 import com.wixpress.framework.rpc.client.RpcProxyFactoryTestBuilder
 import com.wixpress.hoopoe.ids.{Guid, randomGuid}
 import com.wixpress.siteproperties.Country
 import com.wixpress.siteproperties.api.v3.Events.{Deleted, Updated}
 import com.wixpress.siteproperties.api.v3.Notifications.SitePropertiesNotification
 import com.wixpress.siteproperties.api.v3.Properties.{GeoCoordinates, PostalAddress}
-import org.specs2.matcher.{Matcher, Scope}
+import org.specs2.matcher.Scope
 import org.specs2.mutable.SpecificationWithJUnit
-import spray.http.HttpResponse
 
 class MapSitesIT extends SpecificationWithJUnit with BaseE2E {
 
