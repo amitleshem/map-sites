@@ -2,16 +2,14 @@
 <configuration>
 
     <services>
-        <sitePropertiesUrl><%= rpc_service_url("com.wixpress.siteproperties.site-properties-service") %></sitePropertiesUrl>
+        <sitePropertiesUrl><%= service_url("com.wixpress.siteproperties.site-properties-service") %></sitePropertiesUrl>
     </services>
 
     <secret>
         <apiKey>AIzaSyAujV40bM2bvaudjrhh40fxWD5pcV4HlHs</apiKey>
     </secret>
 
-    <index>
-        <indexName>sites</indexName>
-        <typeName>site</typeName>
-    </index>
+    <index>sites</index>
+    <esUrl>http://localhost:9200/</esUrl>
 
 </configuration>

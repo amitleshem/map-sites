@@ -16,7 +16,7 @@ class MapSitesConfig {
 
   val context: GeoApiContext = new GeoApiContext.Builder().apiKey(config.secret.apiKey).build
 
-  @Bean def dao: Dao = new ElasticSearchDao(config.index.indexName, config.index.typeName)
+  @Bean def dao: Dao = new ElasticSearchDao(config.esUrl, config.index)
 
   @Bean def mapSitesController(dao: Dao): MapSitesController = new MapSitesController(dao)
 
@@ -26,7 +26,6 @@ class MapSitesConfig {
 
     new EventMessageHandler(dao, sitePropertiesStorage, context)
   }
-
 
   @Bean def consumer(consumers: Consumers, eventMessageHandler: EventMessageHandler) = {
     val messageHandler = MessageHandler.aMessageHandler {
@@ -39,7 +38,6 @@ class MapSitesConfig {
 
 }
 
-case class ConfigRoot(services: Services, secret: Secret, index: Index)
+case class ConfigRoot(services: Services, secret: Secret, index: String, esUrl: String)
 case class Services(sitePropertiesUrl: String)
 case class Secret(apiKey: String)
-case class Index(indexName: String, typeName: String)

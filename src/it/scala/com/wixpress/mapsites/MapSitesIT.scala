@@ -6,7 +6,6 @@ import com.wixpress.siteproperties.Country
 import com.wixpress.siteproperties.api.v3.Events.Updated
 import com.wixpress.siteproperties.api.v3.Notifications.SitePropertiesNotification
 import com.wixpress.siteproperties.api.v3.Properties.{GeoCoordinates, PostalAddress}
-import com.workday.esclient.EsClient
 import org.specs2.matcher.Scope
 import org.specs2.mutable.SpecificationWithJUnit
 

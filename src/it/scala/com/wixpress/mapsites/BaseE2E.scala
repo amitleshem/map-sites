@@ -3,9 +3,9 @@ package com.wixpress.mapsites
 import com.wix.bootstrap.BootstrapManagedService
 import com.wixpress.framework.test.env.{Configurer, GlobalTestEnvSupport, TestEnv, TestEnvBuilder}
 import com.wixpress.greyhound.{GreyhoundTestingSupport, KafkaDriver, KafkaManagedService}
+import com.wixpress.hoopoe.RandomTestUtils
 import com.wixpress.hoopoe.config.TestConfigFactory.aTestEnvironmentFor
 import com.wixpress.siteproperties.testkit.SitePropertiesTestKit
-
 
 trait BaseE2E extends GlobalTestEnvSupport with GreyhoundTestingSupport {
   override def testEnv: TestEnv = EmbeddedEnvironment.testEnv
@@ -14,11 +14,12 @@ trait BaseE2E extends GlobalTestEnvSupport with GreyhoundTestingSupport {
 object EmbeddedEnvironment {
 
   val testKit = SitePropertiesTestKit.createAndStart(8088)
-
+  val indexName = "sites-" + RandomTestUtils.randomStr
 
   def serviceConfiguration = {
     aTestEnvironmentFor[ConfigRoot]("map-sites",
-      ("rpc_service_url.com.wixpress.siteproperties.site-properties-service", s"http://localhost:8088")
+      ("service_url.com.wixpress.siteproperties.site-properties-service", s"http://localhost:8088"),
+      ("index", indexName)
     )
   }
 
