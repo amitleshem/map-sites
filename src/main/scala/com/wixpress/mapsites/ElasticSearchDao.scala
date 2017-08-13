@@ -7,6 +7,8 @@ import com.workday.esclient.EsClient
 import net.liftweb.json.DefaultFormats
 import net.liftweb.json.Serialization.write
 
+import scala.util.Try
+
 class ElasticSearchDao(esUrl: String, indexName: String) extends Dao{
 
   val typeName = "site"
@@ -14,6 +16,8 @@ class ElasticSearchDao(esUrl: String, indexName: String) extends Dao{
 
   val mapper = JsonMapper.objectMapperFromTemplate
     .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+
+  Try{client.catIndex(indexName)}.recover{ case _ => client.createIndex(indexName) }.get
 
   private def deserialize(payload: Array[Byte]): Address =
     mapper.readValue(payload, classOf[Address])

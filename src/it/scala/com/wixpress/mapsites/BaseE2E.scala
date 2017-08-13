@@ -14,12 +14,12 @@ trait BaseE2E extends GlobalTestEnvSupport with GreyhoundTestingSupport {
 object EmbeddedEnvironment {
 
   val testKit = SitePropertiesTestKit.createAndStart(8088)
-  val indexName = "sites-" + RandomTestUtils.randomStr
+  val indexName = "sites-" + RandomTestUtils.randomStr.toLowerCase
 
   def serviceConfiguration = {
     aTestEnvironmentFor[ConfigRoot]("map-sites",
-      ("service_url.com.wixpress.siteproperties.site-properties-service", s"http://localhost:8088"),
-      ("index", indexName)
+      (config: ConfigRoot) => config.copy(index = indexName),
+      ("service_url.com.wixpress.siteproperties.site-properties-service", s"http://localhost:8088")
     )
   }
 
