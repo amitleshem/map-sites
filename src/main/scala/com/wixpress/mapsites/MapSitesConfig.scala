@@ -14,15 +14,15 @@ class MapSitesConfig {
 
   val config = aConfigFor[ConfigRoot]("map-sites")
 
-  val context: GeoApiContext = new GeoApiContext.Builder().apiKey(config.secret.apiKey).build
+  val context: GeoApiContext = new GeoApiContext.Builder().apiKey(config.apiKey).build
 
-  @Bean def dao: Dao = new ElasticSearchDao(config.esUrl, config.index)
+  @Bean def dao: Dao = new ElasticSearchDao(config.esUrl, config.esIndex)
 
   @Bean def mapSitesController(dao: Dao): MapSitesController = new MapSitesController(dao)
 
   @Bean def eventMessageHandler(dao: Dao): EventMessageHandler = {
 
-    val sitePropertiesStorage = RpcFactory.withSession.builderFor[SitePropertiesStorageV3].withBaseUrl(config.services.sitePropertiesUrl).build()
+    val sitePropertiesStorage = RpcFactory.withSession.builderFor[SitePropertiesStorageV3].withBaseUrl(config.sitePropertiesUrl).build()
 
     new EventMessageHandler(dao, sitePropertiesStorage, context)
   }
@@ -32,12 +32,11 @@ class MapSitesConfig {
       sitePropertyNotification: SitePropertiesNotification => eventMessageHandler.handleMessage(sitePropertyNotification)
     }.build
     consumers.add(GreyhoundConsumerSpec.aGreyhoundConsumerSpec(topic = "site-properties.changes", messageHandler = messageHandler)
-      .withGroup("myGroup"))
+      .withGroup(config.kafkaGroup))
     messageHandler
   }
 
 }
 
-case class ConfigRoot(services: Services, secret: Secret, index: String, esUrl: String)
-case class Services(sitePropertiesUrl: String)
-case class Secret(apiKey: String)
+case class ConfigRoot(apiKey: String, esIndex: String, esUrl: String, sitePropertiesUrl: String, kafkaGroup: String)
+

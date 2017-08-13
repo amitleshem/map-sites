@@ -18,7 +18,7 @@ object EmbeddedEnvironment {
 
   def serviceConfiguration = {
     aTestEnvironmentFor[ConfigRoot]("map-sites",
-      (config: ConfigRoot) => config.copy(index = indexName),
+      (config: ConfigRoot) => config.copy(esIndex = indexName),
       ("service_url.com.wixpress.siteproperties.site-properties-service", s"http://localhost:8088")
     )
   }

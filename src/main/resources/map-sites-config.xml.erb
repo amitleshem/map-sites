@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <services>
-        <sitePropertiesUrl><%= service_url("com.wixpress.siteproperties.site-properties-service") %></sitePropertiesUrl>
-    </services>
-
-    <secret>
-        <apiKey>AIzaSyAujV40bM2bvaudjrhh40fxWD5pcV4HlHs</apiKey>
-    </secret>
-
-    <index>sites</index>
+    <sitePropertiesUrl><%= service_url("com.wixpress.siteproperties.site-properties-service") %></sitePropertiesUrl>
+    <apiKey>AIzaSyAujV40bM2bvaudjrhh40fxWD5pcV4HlHs</apiKey>
+    <esIndex>sites</esIndex>
     <esUrl>http://localhost:9200/</esUrl>
+    <kafkaGroup>mapSites</kafkaGroup>
 
 </configuration>
