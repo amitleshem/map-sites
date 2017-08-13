@@ -18,18 +18,6 @@ class MapSitesIT extends SpecificationWithJUnit with BaseE2E {
     val requestsDriver = RequestsDriver()
     val postalAddress = PostalAddress(street = "hanamal 40", city = "Tel Aviv", Country.IS , None)
 
-
-    val esUrl = "http://localhost:9200"
-    val client = EsClient.createEsClient(esUrl)
-    val indexName = "sites" //index name
-    val typeName = "site" //type for documents
-
-//    val mapper = JsonMapper.objectMapperFromTemplate
-//      .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-//    def deserialize(payload: Array[Byte]): Option[Address] = {
-//      mapper.readValue(payload, classOf[Address])
-//    }
-
   }
 
   sequential

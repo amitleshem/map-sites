@@ -120,6 +120,8 @@
             <artifactId>hoopoe-json</artifactId>
         </dependency>
 
+
+
     </dependencies>
 
     <developers>

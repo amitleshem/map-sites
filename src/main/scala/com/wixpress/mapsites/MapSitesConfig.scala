@@ -12,11 +12,11 @@ import org.springframework.context.annotation.{Bean, Configuration, Import}
 @Import(Array(classOf[GreyhoundSpringConfig], classOf[JsonRpcServerConfiguration]))
 class MapSitesConfig {
 
-  private val config = aConfigFor[ConfigRoot]("map-sites")
+  val config = aConfigFor[ConfigRoot]("map-sites")
 
   val context: GeoApiContext = new GeoApiContext.Builder().apiKey(config.secret.apiKey).build
 
-  @Bean def dao: Dao = new ElasticSearchDao
+  @Bean def dao: Dao = new ElasticSearchDao(config.index.indexName, config.index.typeName)
 
   @Bean def mapSitesController(dao: Dao): MapSitesController = new MapSitesController(dao)
 
@@ -37,9 +37,9 @@ class MapSitesConfig {
     messageHandler
   }
 
-
 }
 
-case class ConfigRoot(services: Services, secret: Secret)
+case class ConfigRoot(services: Services, secret: Secret, index: Index)
 case class Services(sitePropertiesUrl: String)
 case class Secret(apiKey: String)
+case class Index(indexName: String, typeName: String)
