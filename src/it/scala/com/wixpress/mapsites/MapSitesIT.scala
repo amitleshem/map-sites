@@ -36,17 +36,22 @@ class MapSitesIT extends SpecificationWithJUnit with BaseE2E {
 
   sequential
 
-  "map sites" should {
+  "map sites with rpc" should {
 
-    "produce event and save address to DB in RPC" in new Ctx {
+    "produce event and save site to DB" in new Ctx {
       val guid = randomGuid
       sendNotificationToKafka(guid)
       rpcClient.getAddress(guid) must beSome(requestsDriver.anAddress("hanamal 40", "Tel Aviv", Country.IS.numeric(),
-              Some(GeoCoordinates(31.98960170, 34.77902670)))).eventually
+        Some(GeoCoordinates(31.98960170, 34.77902670)))).eventually
+    }
+
+    "get unexistent site" in new Ctx{
+      val guid = randomGuid
+      rpcClient.getAddress(guid) must beNone
     }
 
 
-    "delete address from DB in RPC" in new Ctx {
+    "delete site from DB" in new Ctx {
       val guid = randomGuid
       sendNotificationToKafka(guid)
       eventually{
@@ -54,6 +59,15 @@ class MapSitesIT extends SpecificationWithJUnit with BaseE2E {
           Some(GeoCoordinates(31.98960170, 34.77902670)))).eventually
       }
 
+      val versionDelete = kit.deletePostalAddress(guid)
+      val deleteEvent = Deleted[PostalAddress](versionDelete, classOf[PostalAddress])
+      val notification2: SitePropertiesNotification = kit.sendNotification(topic, guid, deleteEvent, Seq.empty)
+      rpcClient.getAddress(guid) must beNone.eventually
+
+    }
+
+    "delete unexistent site" in new Ctx{
+      val guid = randomGuid
       val versionDelete = kit.deletePostalAddress(guid)
       val deleteEvent = Deleted[PostalAddress](versionDelete, classOf[PostalAddress])
       val notification2: SitePropertiesNotification = kit.sendNotification(topic, guid, deleteEvent, Seq.empty)
