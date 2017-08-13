@@ -4,7 +4,7 @@ import com.wixpress.authorization.MetaSiteId
 import com.wixpress.hoopoe.ids.Guid
 import com.wixpress.hoopoe.json.JsonMapper
 import com.wixpress.siteproperties.api.v2.GeoCoordinates
-import com.workday.esclient.EsClient
+import com.workday.esclient.{DeleteAction, EsClient}
 import net.liftweb.json.DefaultFormats
 import net.liftweb.json.Serialization.write
 
@@ -18,7 +18,11 @@ class ElasticSearchDao(esUrl: String, indexName: String) extends Dao{
 
   Try{client.catIndex(indexName)}.recover{ case _ => client.createIndex(indexName, Some(ElasticSearchDao.settings)) }.get
 
-  override def delete(metasiteId: Guid[_]): Unit = ??? //implement if needed
+
+  override def delete(metasiteId: Guid[_]): Unit = {
+    val delete = DeleteAction(indexName, ElasticSearchDao.typeName, metasiteId.getId)
+    client.bulk(Seq(delete))
+  }
 
   override def get(metaSiteId: Guid[_]): Option[Address] = {
     val getDoc = client.get(indexName, metaSiteId.getId)
@@ -59,4 +63,4 @@ object ElasticSearchDao{
 }
 
 case class ESGeoPoint(lat: Double, lon: Double)
-case class ESAddress(street: String, city: String, country: Int, val coordinates: Option[ESGeoPoint])
+case class ESAddress(street: String, city: String, country: Int, coordinates: Option[ESGeoPoint])

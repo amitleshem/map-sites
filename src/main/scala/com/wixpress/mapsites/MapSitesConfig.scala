@@ -1,6 +1,7 @@
 package com.wixpress.mapsites
 
 import com.google.maps.GeoApiContext
+import com.wixpress.framework.rpc.server.RpcServiceRegistration
 import com.wixpress.framework.spring.JsonRpcServerConfiguration
 import com.wixpress.greyhound.{Consumers, GreyhoundConsumerSpec, GreyhoundSpringConfig, MessageHandler}
 import com.wixpress.hoopoe.config.ConfigFactory._
@@ -18,7 +19,12 @@ class MapSitesConfig {
 
   @Bean def dao: Dao = new ElasticSearchDao(config.esUrl, config.esIndex)
 
-  @Bean def mapSitesController(dao: Dao): MapSitesController = new MapSitesController(dao)
+  @Bean def mapSitesA(dao: Dao): RpcServiceRegistration =
+    new RpcServiceRegistration {
+      def registerServices() = {
+        registerEndpoint(classOf[MapSitesApi], new DefaultMapSitesApi(dao))
+      }
+    }
 
   @Bean def eventMessageHandler(dao: Dao): EventMessageHandler = {
 

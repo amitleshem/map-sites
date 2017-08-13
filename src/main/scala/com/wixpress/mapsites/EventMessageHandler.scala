@@ -30,7 +30,6 @@ class EventMessageHandler(dao: Dao, siteProperties: SitePropertiesStorageV3, con
     }
   }
 
-
   private def delete(sitePropertyNotification: SitePropertiesNotification) = {
     dao.delete(sitePropertyNotification.metasiteId)
   }
